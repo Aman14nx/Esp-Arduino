@@ -1,0 +1,48 @@
+**Description**:
+/* This code controls a stepper motor's movement, simulating a left-to-right travel. It uses a limit switch to stop the motor's movement when pressed, and when released, it changes the motor's direction 
+to continue traveling. This simple program can be used in various applications like camera sliders or automated systems that require controlled linear motion with a limit switch for position sensing.  */
+
+//Copy the Esp 32 code down below 
+
+
+int dirpin_T1 = 2;
+int dirH_T1 = 3;
+int steppin_T1 = 4;
+int limit = 10; // ASSUME LIMIT-SWITCH IS PLACED AT RIGHT CORNER
+void setup() {
+  pinMode(limit,INPUT);
+
+
+  pinMode(dirpin_T1, OUTPUT);
+  pinMode(dirH_T1, OUTPUT);
+  pinMode(steppin_T1, OUTPUT);
+
+}
+
+void loop() { //STEPPER TRAVELLING LEFT TO RIGHT
+
+    digitalWrite(dirpin_T1, LOW );     
+    digitalWrite(dirH_T1, LOW);
+   do
+   {
+      digitalWrite(steppin_T1, LOW);  // This LOW to HIGH change is what creates the
+      digitalWrite(steppin_T1, HIGH); // "Rising Edge" so the easydriver knows to when to step.
+      delayMicroseconds(50);
+
+   }while(digitalRead(limit)==HIGH); //AS LIMIT-SWITCH PRESSED MOTOR STOPS
+  delay(500);
+  //WHEN LIMIT-SWITCH IS LOW CHANGE THE DIRECTION OF MOTOR ROTATION
+  if(digitalRead(limit)==LOW)
+  {
+      digitalWrite(dirpin_T1, LOW ); //CHANGE MOTOR DIRECTION (LOW TO HIGH) 
+      digitalWrite(dirH_T1, HIGH);
+     for(int i=0; i<36000;i++)
+      { //please try changing value of i as it depends on how much rotations you want your motor to step forward
+
+      digitalWrite(steppin_T1, LOW);  // This LOW to HIGH change is what creates the
+      digitalWrite(steppin_T1, HIGH); // "Rising Edge" so the easydriver knows to when to step.
+      delayMicroseconds(50);
+     }
+
+  }
+}
