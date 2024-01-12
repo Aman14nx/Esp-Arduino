@@ -1,0 +1,2 @@
+This code controls a stepper motor's movement, simulating a left-to-right travel. It uses a limit switch to stop the motor's movement when pressed, and when released, it changes the motor's direction 
+to continue traveling. This simple program can be used in various applications like camera sliders or automated systems that require controlled linear motion with a limit switch for position sensing. 
